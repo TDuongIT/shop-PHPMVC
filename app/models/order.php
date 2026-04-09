@@ -1,7 +1,7 @@
 <?php
 
 class Order{
-    public function getTotalOrders(){
+    public function getTotalorders(){
         $db = DB::getInstance();
         $query = "SELECT COUNT(*) as total FROM orders WHERE customer_id IS NOT NULL";
         $stmt = $db->prepare($query);
@@ -10,9 +10,9 @@ class Order{
         return $result['total'];
     }
 
-    public function getListOrders($start, $limit){
+    public function getListorders($start, $limit){
         $db = DB::getInstance();
-        $query ="SELECT o.order_id, o.customer_id,o.order_date, o.total_amount,o.order_status, c.customer_name FROM Orders o JOIN Customers c ON o.customer_id = c.customer_id LIMIT $start, $limit";
+        $query ="SELECT o.order_id, o.customer_id,o.order_date, o.total_amount,o.order_status, c.customer_name FROM orders o JOIN customers c ON o.customer_id = c.customer_id LIMIT $start, $limit";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -47,15 +47,15 @@ class Order{
             ps.size AS product_size,
             oi.quantity
         FROM
-            Orders o
+            orders o
         JOIN
-            Customers c ON o.customer_id = c.customer_id
+            customers c ON o.customer_id = c.customer_id
         JOIN
-            Order_Items oi ON o.order_id = oi.order_id
+            order_items oi ON o.order_id = oi.order_id
         JOIN
-            Products p ON oi.product_id = p.product_id
+            products p ON oi.product_id = p.product_id
         JOIN
-            Product_sizes ps ON p.product_size_id = ps.product_size_id
+            product_sizes ps ON p.product_size_id = ps.product_size_id
         WHERE o.order_id = :order_id";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':order_id', $order_id);
@@ -66,7 +66,7 @@ class Order{
 
     public function getOrderByID($order_id){
         $db = DB::getInstance();
-        $query = "SELECT o.*, c.customer_name, c.customer_address FROM Orders o JOIN Customers c ON o.customer_id = c.customer_id WHERE order_id = :order_id";
+        $query = "SELECT o.*, c.customer_name, c.customer_address FROM orders o JOIN customers c ON o.customer_id = c.customer_id WHERE order_id = :order_id";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':order_id', $order_id);
         $stmt->execute();
@@ -76,7 +76,7 @@ class Order{
 
     public function getOrderByCustomerID($customer_id){
         $db = DB::getInstance();
-        $query = "SELECT o.*, c.customer_name FROM Orders o JOIN Customers c ON o.customer_id = c.customer_id WHERE c.customer_id = :customer_id";
+        $query = "SELECT o.*, c.customer_name FROM orders o JOIN customers c ON o.customer_id = c.customer_id WHERE c.customer_id = :customer_id";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':customer_id', $customer_id);
         $stmt->execute();
@@ -87,7 +87,7 @@ class Order{
     public function searchOrder($search_query)
     {
         $db = DB::getInstance();
-        $query = "SELECT o.*, c.customer_name FROM Orders o JOIN Customers c ON o.customer_id = c.customer_id
+        $query = "SELECT o.*, c.customer_name FROM orders o JOIN customers c ON o.customer_id = c.customer_id
                   WHERE o.order_id = :search_query";
     
         $stmt = $db->prepare($query);

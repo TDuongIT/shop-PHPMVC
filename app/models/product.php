@@ -7,8 +7,8 @@ class Product
   {
     $db = DB::getInstance();
     $query = 'SELECT p.*, c.category_name, s.size
-    FROM Products p
-    JOIN Categories c ON p.category_id = c.category_id
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
     JOIN product_sizes s ON p.product_size_id = s.product_size_id';
     $stmt = $db->prepare($query);
     $stmt->execute();
@@ -74,8 +74,8 @@ class Product
   {
     $db = DB::getInstance();
     $query = 'SELECT p.*, c.category_name, s.size
-    FROM Products p
-    JOIN Categories c ON p.category_id = c.category_id
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
     JOIN product_sizes s ON p.product_size_id = s.product_size_id
     WHERE p.product_id = :product_id';
     $stmt = $db->prepare($query);
@@ -89,8 +89,8 @@ class Product
   public function getProductByCategory($category_id){
     $db = DB::getInstance();
     $query = 'SELECT p.*, c.category_name
-    FROM Products p
-    JOIN Categories c ON p.category_id = c.category_id
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
     WHERE p.category_id = :category_id';
     $stmt = $db->prepare($query);
     $stmt->bindValue(':category_id', $category_id);
@@ -225,8 +225,8 @@ class Product
   // public function getProductByCategory($category_id){
   //   $db = DB::getInstance();
   //   $query = 'SELECT p.*, c.category_name
-  //   FROM Products p
-  //   JOIN Categories c ON p.category_id = c.category_id
+  //   FROM products p
+  //   JOIN categories c ON p.category_id = c.category_id
   //   WHERE p.category_id = :category_id';
   //   $stmt = $db->prepare($query);
   //   $stmt->bindValue(':category_id', $category_id);
@@ -238,8 +238,8 @@ class Product
   public function getRows($start, $limit){
     $db = DB::getInstance();
     $query = "SELECT p.*, c.category_name, s.size
-    FROM Products p
-    JOIN Categories c ON p.category_id = c.category_id
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
     JOIN product_sizes s ON p.product_size_id = s.product_size_id
     LIMIT $start, $limit";
     $stmt = $db->prepare($query);
@@ -251,8 +251,8 @@ class Product
   public function getRowsByCategory($category_id, $start, $limit){
     $db = DB::getInstance();
     $query = "SELECT p.*, c.category_name
-    FROM Products p
-    JOIN Categories c ON p.category_id = c.category_id
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
     WHERE p.category_id = :category_id
     LIMIT $start, $limit";
     $stmt = $db->prepare($query);
@@ -262,11 +262,11 @@ class Product
     return $result;
   }
 
-  public function getProductsByPriceDesc($start, $limit) {
+  public function getproductsByPriceDesc($start, $limit) {
     $db = DB::getInstance();
     $query = "SELECT p.*, c.category_name, s.size
-    FROM Products p
-    JOIN Categories c ON p.category_id = c.category_id
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
     JOIN product_sizes s ON p.product_size_id = s.product_size_id ORDER BY product_price DESC LIMIT $start, $limit";
     $stmt = $db->prepare($query);
     $stmt->execute();
@@ -275,11 +275,11 @@ class Product
   }
 
   
-  public function getProductsByPriceAsc($start, $limit) {
+  public function getproductsByPriceAsc($start, $limit) {
     $db = DB::getInstance();
     $query = "SELECT p.*, c.category_name, s.size
-    FROM Products p
-    JOIN Categories c ON p.category_id = c.category_id
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
     JOIN product_sizes s ON p.product_size_id = s.product_size_id ORDER BY product_price ASC LIMIT $start, $limit";
     $stmt = $db->prepare($query);
     $stmt->execute();
@@ -291,8 +291,8 @@ class Product
 {
     $db = DB::getInstance();
     $query = "SELECT p.*, c.category_name, s.size
-              FROM Products p
-              JOIN Categories c ON p.category_id = c.category_id
+              FROM products p
+              JOIN categories c ON p.category_id = c.category_id
               JOIN product_sizes s ON p.product_size_id = s.product_size_id
               WHERE p.product_name LIKE :search_query";
 

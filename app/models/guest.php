@@ -49,9 +49,9 @@ class Guest{
         JOIN
             Order_Items oi ON o.order_id = oi.order_id
         JOIN
-            Products p ON oi.product_id = p.product_id
+            products p ON oi.product_id = p.product_id
         JOIN
-            Product_sizes ps ON p.product_size_id = ps.product_size_id
+            product_sizes ps ON p.product_size_id = ps.product_size_id
         WHERE o.order_id = :order_id";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':order_id', $order_id);

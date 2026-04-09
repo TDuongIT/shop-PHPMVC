@@ -1,4 +1,3 @@
-
 <?php
 class DB
 {
@@ -6,7 +5,7 @@ class DB
     public static function getInstance() {
       if (!isset(self::$instance)) {
         try {
-          self::$instance = new PDO('mysql:host=localhost;port=3306;dbname=jewelry_shop', 'root', 'duongtlu');
+          self::$instance = new PDO('mysql:host=localhost;port=3306;dbname=jewelry_shop', 'root', 'duong2002');
           self::$instance->exec("SET NAMES 'utf8'");
         } catch (PDOException $ex) {
           die($ex->getMessage());
